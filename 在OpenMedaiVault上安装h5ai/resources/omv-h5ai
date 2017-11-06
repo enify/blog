@@ -1,0 +1,46 @@
+server {
+    server_name openmediavault-webgui;
+    root /var/www/openmediavault;
+    index index.php;
+    autoindex off;
+    server_tokens off;
+    sendfile on;
+    large_client_header_buffers 4 32k;
+    client_max_body_size 25M;
+    error_log /var/log/nginx/openmediavault-webgui_error.log error;
+    access_log /var/log/nginx/openmediavault-webgui_access.log combined;
+    error_page 404 = /404.php;
+    location /404.html {
+        internal;
+    }
+    location /extjs6/ {
+        alias /usr/share/javascript/extjs6/;
+    }
+    location /images/ {
+        alias /var/www/openmediavault/images/;
+    }
+    # 添加以下内容
+    location /h5ai/ {
+        index index.php /h5ai/_h5ai/public/index.php;
+    }
+    location ~ /h5ai/.+\.php$ {
+        fastcgi_split_path_info ^(.+\.php)(.*)$;
+        try_files $fastcgi_script_name =404;
+        fastcgi_pass php;
+        fastcgi_index /h5ai/_h5ai/public/index.php;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include fastcgi_params;
+    }
+    # 结束
+    location ~ ^/(?!.*h5ai).+\.php$ {
+        try_files $uri =404;
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+        fastcgi_pass unix:/var/run/php5-fpm-openmediavault-webgui.sock;
+        fastcgi_index index.php;
+        fastcgi_read_timeout 60s;
+        include fastcgi.conf;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    }
+    listen 80;
+    include /etc/nginx/openmediavault-webgui.d/*.conf;
+}

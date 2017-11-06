@@ -1,0 +1,31 @@
+server {
+	server_name h5ai;
+	root /var/www/openmediavault/h5ai;
+	index  index.html  index.php  /_h5ai/public/index.php;
+	# autoindex on;
+	# autoindex_exact_size off;
+	# autoindex_localtime on;
+	
+	location / {
+		try_files $uri $uri/ =404;
+	}
+	
+	location /_h5ai {
+		location /_h5ai/private {
+			return 404;
+		}
+	}
+	
+	location ~ .php/ {
+		rewrite ^(.*.php)/ $1 last;
+	}
+	
+	location ~ \.php$ {
+		fastcgi_split_path_info ^(.+\.php)(.*)$;
+		try_files $fastcgi_script_name =404;
+		fastcgi_pass php;
+		fastcgi_index index.php;
+		fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+		include fastcgi_params;
+	}
+}
