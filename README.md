@@ -3,5 +3,6 @@
 
 ## 目录
   - ### 软件篇
+    - [在OpenMedaiVault上安装h5ai](https://github.com/enify/blog/issues/1)
   - ### 硬件篇
   - ### 杂谈
