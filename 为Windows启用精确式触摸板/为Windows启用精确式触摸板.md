@@ -62,7 +62,8 @@
 ![享受精确式触摸板带来的体验吧](https://github.com/enify/blog/blob/master/为Windows启用精确式触摸板/images/享受精确式触摸板带来的体验吧.png)
 
 ## 驱动下载
-如果前面的驱动程序下载地址失效了，试试 [从Github上下载驱动程序](https://github.com/enify/blog/blob/master/为Windows启用精确式触摸板/resources/n1mgx14w.zip)
+如果前面的驱动程序下载地址失效了，试试 [从Github上下载驱动程序](https://github.com/enify/blog/raw/master/为Windows启用精确式触摸板/resources/n1mgx14w.zip)
+
 
 ## 参考源
   - [为Synaptics与Elan驱动的触控板安装微软精确式触控板驱动](https://zhuanlan.zhihu.com/p/28888470)
